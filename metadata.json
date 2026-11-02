@@ -1,0 +1,10 @@
+{
+  "name": "Remix QuickDrop Delivery",
+  "description": "On-demand delivery app featuring Customer booking, Rider order management, Admin dashboard, and live feed views across Pending Requests, Running, and Finished orders.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
