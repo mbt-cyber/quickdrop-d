@@ -313,8 +313,12 @@ export function initSyncEngine(callbacks: SyncCallbacks): () => void {
         } catch (e) {}
       });
       activeAppwriteUnsubscribe = unsubscribe;
-    } catch (e) {
-      console.warn('Appwrite Real-Time subscription error:', e);
+    } catch (e: any) {
+      if (e?.code === 1008 || e?.message?.includes('Invalid Origin') || (typeof e === 'string' && e.includes('1008'))) {
+        console.warn('Appwrite Realtime note: Please register this app URL as a Web Platform in your Appwrite Project Console dashboard.');
+      } else {
+        console.warn('Appwrite Real-Time subscription error:', e);
+      }
     }
   };
 

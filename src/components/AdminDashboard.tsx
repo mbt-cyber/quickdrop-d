@@ -50,6 +50,7 @@ import {
   EyeOff,
   Zap,
   Code2,
+  Globe,
 } from 'lucide-react';
 
 interface AdminDashboardProps {
@@ -129,6 +130,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     latencyMs?: number;
   } | null>(null);
   const [copiedAppwriteGuide, setCopiedAppwriteGuide] = useState(false);
+  const [copiedAdminHostname, setCopiedAdminHostname] = useState(false);
 
   const handleSaveAppwriteSettings = (e: React.FormEvent) => {
     e.preventDefault();
@@ -1849,6 +1851,36 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 font-mono bg-slate-50 focus:bg-white transition-all"
                 />
               </div>
+            </div>
+
+            {/* Web Platform Hostname Registration Helper */}
+            <div className="p-4 bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-2xl text-xs space-y-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="font-bold text-pink-950 flex items-center gap-1.5 text-xs">
+                  <Globe className="w-4 h-4 text-pink-600 shrink-0" />
+                  <span>Required Appwrite Web Platform Hostname:</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (navigator.clipboard && typeof window !== 'undefined') {
+                      navigator.clipboard.writeText(window.location.hostname);
+                      setCopiedAdminHostname(true);
+                      setTimeout(() => setCopiedAdminHostname(false), 2000);
+                    }
+                  }}
+                  className="px-3 py-1 bg-white border border-pink-300 hover:bg-pink-100 text-pink-700 rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-2xs transition-all"
+                >
+                  {copiedAdminHostname ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedAdminHostname ? 'Copied Hostname!' : 'Copy Hostname'}</span>
+                </button>
+              </div>
+              <div className="font-mono text-xs text-pink-900 bg-white/90 px-3 py-2 rounded-lg border border-pink-200 select-all truncate">
+                {typeof window !== 'undefined' ? window.location.hostname : 'ais-dev-...run.app'}
+              </div>
+              <p className="text-[11px] text-slate-600 leading-relaxed">
+                <b>Appwrite Setup Requirement:</b> To prevent Code 1008 "Invalid Origin" disconnects, open Appwrite Console &gt; <b>Project Settings &gt; Platforms &gt; Add Platform &gt; Web App</b> and paste this hostname (or <code className="bg-white px-1.5 py-0.5 rounded border border-pink-200 text-pink-800 font-bold">*</code>).
+              </p>
             </div>
 
             {/* Error Message */}

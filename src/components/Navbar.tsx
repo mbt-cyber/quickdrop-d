@@ -95,17 +95,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* User Profile & Auth Status */}
           <div className="flex items-center gap-2">
-            {onOpenAppwriteModal && (
-              <button
-                onClick={onOpenAppwriteModal}
-                className="hidden sm:flex items-center gap-1 px-3 py-1.5 bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 rounded-xl text-xs font-bold transition-all cursor-pointer"
-                title="Configure Appwrite Backend"
-              >
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Appwrite Config</span>
-              </button>
-            )}
-
             {authUser && authUser.role === 'customer' && currentRole === 'customer' && !currentUser?.isBlocked ? (
               <div className="flex items-center gap-2.5 px-3 py-1.5 bg-indigo-50 border border-indigo-200 rounded-xl text-slate-900 shadow-2xs">
                 <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs uppercase shadow-xs shrink-0 overflow-hidden">
